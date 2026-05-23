@@ -1,0 +1,18 @@
+.header-container {
+  background-image: url("../../assets/img/Header.jpg");
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  background-blend-mode: overlay;
+  height: 35vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-content {
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
