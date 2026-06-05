@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function CardPizza({ name, price, ingredients, img }) {
+export default function CardPizza({
+  desc,
+  name,
+  price,
+  ingredients = [],
+  img,
+}) {
   return (
     <>
       <div className="col-12 col-md-6 col-lg-4 my-4">
@@ -13,10 +19,23 @@ export default function CardPizza({ name, price, ingredients, img }) {
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item text-center">
+              <p className="card-text text-muted fs-6 fw-light mb-0">{desc}</p>
+            </li>
+            <li className="list-group-item text-center">
               <p className="text-muted fs-5 fw-bold mb-1 fs-6">
                 Ingredientes:{" "}
               </p>
-              <p className="mb-0 fs-6 fw-light">{ingredients.join(", ")}</p>
+              {/* Iteracion de Ingredientes */}
+              <ul className="list-group list-group-flush">
+                {ingredients.map((ingredient, index) => (
+                  <li
+                    key={index}
+                    className="text-muted text-center fs-6 list-group-item"
+                  >
+                    {ingredient}
+                  </li>
+                ))}
+              </ul>
             </li>
             <li className="list-group-item text-center pb-3">
               <h5 className="fw-bold fs-4 mb-3">
