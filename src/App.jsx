@@ -1,9 +1,10 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
-import Cart from "./components/Cart";
+// import Cart from "./components/Cart";
 // import Home from "./components/Home";
 // import RegisterForm from "./components/RegisterForm";
 // import LoginForm from "./components/LoginForm";
+import Pizza from "./components/Pizza";
 import Footer from "./components/Footer";
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
       {/* <RegisterForm /> */}
       {/* <LoginForm /> */}
       {/* <Home /> */}
-      <Cart />
+      {/* <Cart /> */}
+      <Pizza />
       <Footer />
     </>
   );
