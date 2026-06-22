@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 export default function CardPizza({
   desc,
@@ -42,9 +43,11 @@ export default function CardPizza({
                 Precio: ${price.toLocaleString("es-CL")}
               </h5>
               <div className="d-flex justify-content-around">
-                <button type="button" className="btn btn-outline-dark btn-sm">
-                  Ver Más
-                </button>
+                <Link to={`/pizza/p001`}>
+                  <button type="button" className="btn btn-outline-dark btn-sm">
+                    Ver Más
+                  </button>
+                </Link>
                 <button type="button" className="btn btn-dark btn-sm">
                   <i className="fa-solid fa-cart-shopping"></i> Añadir
                 </button>

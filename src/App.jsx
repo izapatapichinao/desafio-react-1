@@ -1,21 +1,28 @@
 import "./App.css";
+import { Routes, Route } from "react-router";
 import Navbar from "./components/Navbar";
-// import Cart from "./components/Cart";
-// import Home from "./components/Home";
-// import RegisterForm from "./components/RegisterForm";
-// import LoginForm from "./components/LoginForm";
-import Pizza from "./components/Pizza";
 import Footer from "./components/Footer";
+import Cart from "./pages/Cart";
+import Home from "./pages/Home";
+import LoginForm from "./pages/LoginForm";
+import RegisterForm from "./pages/RegisterForm";
+import Pizza from "./pages/Pizza";
+import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <>
       <Navbar />
-      {/* <RegisterForm /> */}
-      {/* <LoginForm /> */}
-      {/* <Home /> */}
-      {/* <Cart /> */}
-      <Pizza />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pizza/p001" element={<Pizza />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <Footer />
     </>
   );
