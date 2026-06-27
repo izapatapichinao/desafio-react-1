@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Header from "../components/Header";
 import CardPizza from "../components/CardPizza";
-import { pizzas } from "../assets/js/pizzas";
+import { PizzaContext } from "../context/PizzaProvider";
 
 export default function Home() {
-  const [pizzas, setPizzas] = useState([]);
-
-  const fetchPizzas = async () => {
-    const response = await fetch("http://localhost:5000/api/pizzas");
-    const data = await response.json();
-    setPizzas(data);
-  };
-
-  useEffect(() => {
-    fetchPizzas();
-  }, []);
+  const { pizzas } = useContext(PizzaContext);
 
   return (
     <>
@@ -23,6 +13,7 @@ export default function Home() {
         {pizzas.map((pizza) => (
           <CardPizza
             key={pizza.id}
+            id={pizza.id}
             desc={pizza.desc}
             name={pizza.name}
             price={pizza.price}

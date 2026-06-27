@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { CartContext } from "../context/CartProvider";
 
 export default function CardPizza({
+  id,
   desc,
   name,
   price,
   ingredients = [],
   img,
 }) {
+  const { agregarCarrito } = useContext(CartContext);
+
   return (
     <>
       <div className="col-12 col-md-6 col-lg-4 my-4">
@@ -48,7 +52,13 @@ export default function CardPizza({
                     Ver Más
                   </button>
                 </Link>
-                <button type="button" className="btn btn-dark btn-sm">
+                <button
+                  type="button"
+                  className="btn btn-dark btn-sm"
+                  onClick={() =>
+                    agregarCarrito({ id, name, price, img, count: 1 })
+                  }
+                >
                   <i className="fa-solid fa-cart-shopping"></i> Añadir
                 </button>
               </div>

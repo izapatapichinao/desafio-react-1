@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { PizzaContext } from "../context/PizzaProvider";
+import { CartContext } from "../context/CartProvider";
 
 export default function Pizza() {
-  const [pizza, setPizza] = useState([]);
+  const { pizzas } = useContext(PizzaContext);
+  const { agregarCarrito } = useContext(CartContext);
 
-  const fetchPizza = async () => {
-    const response = await fetch("http://localhost:5000/api/pizzas/p001");
-    const data = await response.json();
-    setPizza(data);
-  };
+  const pizza = pizzas.find((p) => p.id === "p001");
 
-  useEffect(() => {
-    fetchPizza();
-  }, []);
+  if (!pizza) {
+    return (
+      <div className="container mt-5 text-center">
+        <div className="spinner-border text-dark" role="status">
+          <span className="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -51,7 +56,11 @@ export default function Pizza() {
                   <h3 className="fw-bold mb-0">
                     Precio: ${pizza.price?.toLocaleString("es-CL")}
                   </h3>
-                  <button type="button" className="btn btn-dark btn-lg">
+                  <button
+                    type="button"
+                    className="btn btn-dark btn-lg"
+                    onClick={() => agregarCarrito(pizza)}
+                  >
                     <i className="fa-solid fa-cart-shopping"></i> Añadir
                   </button>
                 </div>
