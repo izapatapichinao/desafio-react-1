@@ -47,7 +47,7 @@ export default function CardPizza({
                 Precio: ${price.toLocaleString("es-CL")}
               </h5>
               <div className="d-flex justify-content-around">
-                <Link to={`/pizza/p001`}>
+                <Link to={`/pizza/${id}`}>
                   <button type="button" className="btn btn-outline-dark btn-sm">
                     Ver Más
                   </button>

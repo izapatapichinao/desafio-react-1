@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { NavLink, Link } from "react-router";
 import { CartContext } from "../context/CartProvider";
+import { UserContext } from "../context/UserContext";
 
 export default function Navbar() {
-  const token = false;
+  const { token, logout } = useContext(UserContext);
   const { calcularTotal } = useContext(CartContext);
+  const setActiveStyle = ({ isActive }) => {
+    return isActive ? "active text-info" : "";
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
@@ -25,30 +29,49 @@ export default function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav container-fluid gap-1">
-              <Link to="/" className="btn btn-outline-light">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `btn btn-outline-light ${setActiveStyle({ isActive })}`
+                }
+              >
                 <i className="fa-solid fa-pizza-slice"></i> Home
-              </Link>
+              </NavLink>
 
               {/* Operador ternario */}
               {token ? (
                 <>
-                  <Link to="/profile" className="btn btn-outline-light">
+                  <NavLink to="/profile" className="btn btn-outline-light">
                     <i className="fa-solid fa-unlock"></i> Profile
-                  </Link>
+                  </NavLink>
 
-                  <button type="button" className="btn btn-outline-light">
+                  <button
+                    type="button"
+                    className="btn btn-outline-light"
+                    onClick={logout}
+                  >
                     <i className="fa-solid fa-lock"></i> Logout
                   </button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="btn btn-outline-light">
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      `btn btn-outline-light ${setActiveStyle({ isActive })}`
+                    }
+                  >
                     <i className="fa-solid fa-lock"></i> Login
-                  </Link>
+                  </NavLink>
 
-                  <Link to="/register" className="btn btn-outline-light">
+                  <NavLink
+                    to="/register"
+                    className={({ isActive }) =>
+                      `btn btn-outline-light ${setActiveStyle({ isActive })}`
+                    }
+                  >
                     <i className="fa-solid fa-lock"></i> Register
-                  </Link>
+                  </NavLink>
                 </>
               )}
 

@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
+import { useParams } from "react-router";
 import { PizzaContext } from "../context/PizzaProvider";
 import { CartContext } from "../context/CartProvider";
 
@@ -6,7 +7,8 @@ export default function Pizza() {
   const { pizzas } = useContext(PizzaContext);
   const { agregarCarrito } = useContext(CartContext);
 
-  const pizza = pizzas.find((p) => p.id === "p001");
+  const { id } = useParams();
+  const pizza = pizzas.find((p) => p.id === id);
 
   if (!pizza) {
     return (

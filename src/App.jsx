@@ -1,7 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router";
-import CartProvider from "./context/CartProvider";
-import { PizzaProvider } from "./context/PizzaProvider";
+import { Navigate, Routes, Route } from "react-router";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cart from "./pages/Cart";
@@ -11,25 +9,34 @@ import RegisterForm from "./pages/RegisterForm";
 import Pizza from "./pages/Pizza";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import { useContext } from "react";
+import { UserContext } from "./context/UserContext";
 
 function App() {
+  const { token } = useContext(UserContext);
+
   return (
     <>
-      <PizzaProvider>
-        <CartProvider>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/pizza/p001" element={<Pizza />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Footer />
-        </CartProvider>
-      </PizzaProvider>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/register"
+          element={token ? <Navigate to="/" /> : <RegisterForm />}
+        />
+        <Route
+          path="/login"
+          element={token ? <Navigate to="/" /> : <LoginForm />}
+        />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pizza/:id" element={<Pizza />} />
+        <Route
+          path="/profile"
+          element={token ? <Profile /> : <Navigate to="/login" />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
