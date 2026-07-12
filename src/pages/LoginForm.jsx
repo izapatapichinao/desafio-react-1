@@ -1,26 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import useInput from "../hooks/useInput";
 
 export default function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const email = useInput("");
+  const password = useInput("");
 
-  const handleSubmit = (e) => {
+  const { login } = useContext(UserContext);
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validacion de campos obligatorios
-    if (!email.trim() || !password.trim()) {
+    if (!email.value.trim() || !password.value.trim()) {
       alert("Todos los campos son obligatorios.");
       return;
     }
 
     // Validacion de password de al menos 6 caracteres
-    if (password.length < 6) {
+    if (password.value.length < 6) {
       alert("El password debe tener al menos 6 caracteres.");
       return;
     }
 
-    // Mensaje de exito
-    alert("Autenticación exitosa!");
+    const success = await login(email.value, password.value);
+    if (success) {
+      alert("Autenticación exitosa!");
+    } else {
+      alert("Datos incorrectos");
+    }
 
     // Limpiar campos al finalizar el registro
     setEmail("");
@@ -37,8 +44,7 @@ export default function LoginForm() {
             type="email"
             className="form-control"
             placeholder="Ingresa tu correo"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...email}
           />
         </div>
         <div className="inputContainer">
@@ -47,8 +53,7 @@ export default function LoginForm() {
             type="password"
             className="form-control"
             placeholder="Ingresa tu password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...password}
           />
         </div>
         <button type="submit" className="btn btn-primary">
